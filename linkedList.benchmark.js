@@ -39,15 +39,28 @@ const generateList = () => {
 }
 
 const lotsOfListInsertions = (myList) => {
-  const insertionPoint = myList.elementAtPosition(Math.pow(10,5));
+  const insertionPoint = myList.elementAtPosition(Math.pow(10,6)/2);
   for(let i=0; i<Math.pow(10,3); i++){
-    myList.insert(insertionPoint, chance.name());
+    myList.insert(insertionPoint, 'Blah Blah');
+  }
+}
+
+const lotsOfListPrependings = (myList) => {
+  for(let i=0; i<Math.pow(10,3); i++){
+    myList.prepend('Blah Blah');
+  }
+}
+
+const lotsOfListAppendings = (myList) => {
+  for(let i=0; i<Math.pow(10,3); i++){
+    myList.append('Blah Blah');
   }
 }
 
 const lotsOfSlowListInsertions = (myList) => {
+  const insertionPosition = Math.pow(10,6)/2;
   for(let i=0; i<Math.pow(10,3); i++){
-    myList.insertAt(Math.pow(10,5), chance.name());
+    myList.insertAt(insertionPosition, 'Blah Blah');
   }
 }
 
@@ -59,8 +72,23 @@ const generateArray = () => {
 }
 
 const lotsOfArrayInsertions = (myArray) => {
+  const insertionPosition = Math.pow(10,6)/2;
   doXTimes(() => {
-    myArray.splice(Math.pow(10, 5), 0, chance.name());
+    myArray.splice(insertionPosition, 0, 'Blah Blah');
+  }, Math.pow(10,3)
+  )();
+}
+
+const lotsOfArrayAppendings = (myArray) => {
+  doXTimes(() => {
+    myArray.push('Blah Blah');
+  }, Math.pow(10,3)
+  )();
+}
+
+const lotsOfArrayPrependings = (myArray) => {
+  doXTimes(() => {
+    myArray.splice(0, 0, 'Blah Blah');
   }, Math.pow(10,3)
   )();
 }
@@ -74,10 +102,12 @@ const testList2 = generateList();
 benchmark(() => lotsOfSlowListInsertions(testList), 'lots of slow list insertions');
 
 const testArray = benchmark(generateArray);
-console.log('length', testArray.length);
 benchmark(() => lotsOfArrayInsertions(testArray), 'lots of array insertions');
-console.log('length', testArray.length);
 
+benchmark(() => lotsOfArrayAppendings(testArray), 'lots of array appendings');
+benchmark(() => lotsOfListPrependings(testList), 'lots of list prependings');
+benchmark(() => lotsOfArrayPrependings(testArray), 'lots of array prependings');
+benchmark(() => lotsOfListAppendings(testList), 'lots of list appendings');
 
 
 // benchmark(doXTimes(myList.append(chance.integer({ min: 0, max: 99 }), 1)));

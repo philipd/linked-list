@@ -3,7 +3,7 @@ const benchmark = (callback, title) => {
   console.time(title);
   const a = callback();
   console.timeEnd(title);
-  console.log("Returns: ", a);
+  // console.log("Returns: ", a);
   return a;
 };
 
